@@ -1,9 +1,10 @@
 import React from 'react';
+import PostPages from '../PostPages/PostPages';
 
 const Home = () => {
     return (
         <div>
-            <h2>helloe</h2>
+            <PostPages></PostPages>
         </div>
     );
 };
