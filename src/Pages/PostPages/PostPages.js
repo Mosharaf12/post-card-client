@@ -10,7 +10,7 @@ const PostPages = () => {
     }
     return (
         <form onSubmit={handlePost}>
-            <div className='w-450 h-250 shadow-xl p-6 my-12'>
+            <div className='w-450 h-[280px] shadow-xl p-6 my-12'>
             <textarea name='name' className="textarea textarea-primary w-full" placeholder="Bio"></textarea>
             <div>
             <input type="file" name='images' className="file-input file-input-bordered file-input-info w-full my-3" />

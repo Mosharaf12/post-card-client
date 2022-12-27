@@ -7,6 +7,8 @@ const Header = () => {
   <li><Link to='/media'>MEDIA</Link></li>
   <li><Link to='/message'>MESSAGE</Link></li>
   <li><Link to='/about'>ABOUT</Link></li>
+  <li><Link to='/login'>LOGIN</Link></li>
+  <li><Link to='/register'>REGISTER</Link></li>
   </>
     return (
         <div className="navbar bg-pink-100">
