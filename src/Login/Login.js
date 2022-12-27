@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { FaGoogle, IconName } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthProvider';
@@ -24,6 +25,7 @@ const Login = () => {
             const user = result.user;
             console.log(user);
             setError('')
+            toast.success('Your account has been logged in')
             navigate(from, {replace: true})
         })
         .catch(err => {

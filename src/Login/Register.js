@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
-import { FaGoogle, IconName } from "react-icons/fa";
+import { toast } from 'react-hot-toast';
+import { FaGoogle} from "react-icons/fa";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthProvider';
 
@@ -8,7 +9,7 @@ const Register = () => {
     const [error,setError] = useState('')
     const location = useLocation()
     const navigate = useNavigate()
-    const from = location.state.from.pathname || '/'
+    const from = location.state?.from?.pathname || '/'
 
 
     const handleRegister = event =>{
@@ -25,6 +26,7 @@ const Register = () => {
             const user = result.user;
             console.log(user)
             setError('')
+            toast.success('Your account has been created successfully')
             handleUpdateProfile(name);
             navigate(from,{replace: true})
         })
