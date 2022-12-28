@@ -21,21 +21,39 @@ const Register = () => {
         const password =  form.password.value;
         console.log(name, picture, email, password);
 
-        userCreate(email,password)
-        .then(result=>{
-            const user = result.user;
-            console.log(user)
-            setError('')
-            toast.success('Your account has been created successfully')
-            handleUpdateProfile(name, picture);
-            navigate(from,{replace: true})
+        const imgSecret  = process.env.REACT_APP_IMGBB_KEY;
+
+         const formData = new FormData()
+        formData.append('image',picture)
+        const url =`https://api.imgbb.com/1/upload?key=${imgSecret}`
+        fetch(url,{
+           method: "POST",
+           body: formData
+   
         })
-        .catch(err => {
-            console.error(err)
-            setError(err.message)
-        }
-            
-        )
+        .then(res=> res.json())
+        .then(pictureData => {
+          console.log(pictureData)
+          if(pictureData.success){
+            userCreate(email,password)
+            .then(result=>{
+                const user = result.user;
+                console.log(user)
+                setError('')
+                toast.success('Your account has been created successfully')
+                handleUpdateProfile(name, pictureData.data.url);
+                navigate(from,{replace: true})
+            })
+            .catch(err => {
+                console.error(err)
+                setError(err.message)
+            }
+                
+            )
+
+          }
+        })
+
     }
     const handleUpdateProfile =(name,photoURL)=>{
         const profile = {
