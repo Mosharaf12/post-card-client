@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 
 const PostPages = () => {
     const {user} = useContext(AuthContext);
+    const [loading, setLoading] = useState(false)
     const currentdate = new Date();
     const date = currentdate.toLocaleDateString("en-US", {
       hour: "2-digit",
@@ -11,6 +12,7 @@ const PostPages = () => {
     });
     const navigate = useNavigate()
     const handlePost=event=>{
+        setLoading(true);
         event.preventDefault();
         const form = event.target;
         const caption = form.caption.value;
@@ -50,23 +52,33 @@ const PostPages = () => {
             .then(data => {
                 console.log(data)
                 navigate('/media')
+                setLoading(false)
             })
         }
            
             )
     }
     return (
-        <form onSubmit={handlePost}>
-            <div className='w-450 h-[280px] shadow-xl p-6 my-12'>
+       <div className='md:max-w-[600px] mx-auto'>
+         <form onSubmit={handlePost}>
+            <div className=' shadow-xl p-6 my-12'>
             <textarea name='caption' className="textarea textarea-primary w-full" placeholder="What are You thinking?"></textarea>
             <div>
             <input type="file" name='images' className="file-input file-input-bordered file-input-info w-full my-3" />
             </div>
             <div className='flex justify-end'>
-            <button type='submit' className="btn btn-warning P-4">POST</button>
+           
+                {
+                    loading?
+                    <button className="btn loading btn-secondary w-full">Loading...</button>
+                    :
+                    <button type='submit' className="btn btn-warning w-full">POST</button>
+                }
+
             </div>
         </div>
         </form>
+       </div>
     );
 };
 
