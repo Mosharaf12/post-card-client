@@ -73,15 +73,23 @@ const Header = () => {
         <ul className="menu menu-horizontal px-1">{menubar}</ul>
       </div>
       <div className="navbar-end">
-        <h2 className="hover:text-blue-500">{user.displayName}</h2>
+       {
+        user?.uid && 
+        <>
+         <h2 className="hover:text-blue-500">{user?.displayName}</h2>
         <div className="avatar">
-          <div className="w-8 rounded mx-3">
-            <img
-              src={user?.photoURL}
-              alt="Tailwind-CSS-Avatar-component"
-            />
+          <div className="w-8 rounded mx-3"> 
+         {
+          user?.photoURL?
+          <img src={user?.photoURL} alt="" />
+          :
+          <img src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png' alt="" />
+         }
           </div>
         </div>
+        </>
+
+       }
       </div>
     </div>
   );
