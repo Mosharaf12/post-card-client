@@ -5,6 +5,7 @@ import { AuthContext } from '../../Context/AuthProvider';
 const PostPages = () => {
     const {user} = useContext(AuthContext);
     const [loading, setLoading] = useState(false)
+
     const currentdate = new Date();
     const date = currentdate.toLocaleDateString("en-US", {
       hour: "2-digit",

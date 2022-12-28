@@ -1,5 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import Spinner from '../../Componets/Spinner/Spinner';
+import MediaDetails from './MediaDetails';
 
 const Media = () => {
 
@@ -12,10 +14,23 @@ const Media = () => {
         }
     })
 
+    refetch()
+    if(isLoading){
+        return <Spinner></Spinner>
+    }
+
     return (
-        <div>
-            <h3>this is media {posts.length}</h3>
+       <div className='md:max-w-[700px] mx-auto'>
+         <div className='grid grid-cols-1 gap-10 py-16'>
+            {
+                posts.map(post => <MediaDetails
+                key={post.id}
+                post={post}
+                ></MediaDetails>)
+            }
+            
         </div>
+       </div>
     );
 };
 
