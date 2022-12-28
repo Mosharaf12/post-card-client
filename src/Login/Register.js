@@ -27,7 +27,7 @@ const Register = () => {
             console.log(user)
             setError('')
             toast.success('Your account has been created successfully')
-            handleUpdateProfile(name);
+            handleUpdateProfile(name, picture);
             navigate(from,{replace: true})
         })
         .catch(err => {
@@ -37,9 +37,10 @@ const Register = () => {
             
         )
     }
-    const handleUpdateProfile =(name)=>{
+    const handleUpdateProfile =(name,photoURL)=>{
         const profile = {
             displayName : name,
+            photoURL : photoURL
         }
         updateProfileData(profile)
         .then(() =>{
