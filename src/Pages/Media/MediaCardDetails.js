@@ -48,7 +48,7 @@ const MediaCardDetails = () => {
       postId: _id,
     };
 
-    fetch(`http://localhost:5000/comments`, {
+    fetch(`https://post-card-server.vercel.app/comments`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -65,7 +65,7 @@ const MediaCardDetails = () => {
   const { data: comments = [], refetch ,isLoading } = useQuery({
     queryKey: ["comments"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/comments");
+      const res = await fetch("https://post-card-server.vercel.app/comments");
       const data = await res.json();
       return data;
     },
