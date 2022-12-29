@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 
 const PostPages = () => {
@@ -42,7 +42,7 @@ const PostPages = () => {
 
             }
             console.log(pictureData)
-            fetch(`http://localhost:5000/posts`,{
+            fetch(`https://post-card-server.vercel.app/posts`,{
                 method:'POST',
                 headers:{
                     'content-type': 'application/json',
@@ -69,13 +69,19 @@ const PostPages = () => {
             </div>
             <div className='flex justify-end'>
            
-                {
+               {
+                user?.uid ? <>
+                 {
                     loading?
                     <button className="btn loading btn-secondary w-full">Loading...</button>
                     :
                     <button type='submit' className="btn btn-warning w-full">POST</button>
                 }
 
+                </>
+                :
+                <Link to='/login'><button className="btn btn-warning w-full">POST</button></Link>
+               }
             </div>
         </div>
         </form>

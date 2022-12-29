@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Context/AuthProvider";
+import ScrollToTop from "../Hooks/ScrollToTop";
 
 const Header = () => {
   const { logOut, user } = useContext(AuthContext);
@@ -12,7 +13,8 @@ const Header = () => {
 
   const menubar = (
     <>
-      <li>
+    <ScrollToTop>
+    <li>
         <Link to="/">HOME</Link>
       </li>
       <li>
@@ -36,6 +38,7 @@ const Header = () => {
           <Link to="/login">LOGIN</Link>
         </li>
       )}
+    </ScrollToTop>
     </>
   );
   return (
