@@ -1,8 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaRegEdit, FaThumbsUp } from "react-icons/fa";
 
 const MediaDetails = ({ post }) => {
-  const { caption, picture, date, user, countLike } = post;
+  const { caption, picture, date, user, countLike, _id } = post;
+    const [commentBox, setCommentBox] = useState(false);
+    const [loading,setLoading] = useState(false);
+    const [plusLike, setPlusLike] = useState(false)
+
+
+    const handleComment=(id)=>{
+        setCommentBox(true)
+    }
+
+    const handleIncrease = (id) => {
+        setLoading(true)
+        console.log(plusLike);
+
+        fetch(`http://localhost:5000/postlike/${plusLike}?id=${id}`, {
+            method: 'PUT',
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            setLoading(false)
+        })
+    }
+
+
   return (
     <div className="card bg-green-50 shadow-md rounded-none">
       {picture && (
@@ -30,8 +54,23 @@ const MediaDetails = ({ post }) => {
         <p>{countLike} Likes</p>
         <hr />
         <div className="flex justify-between">
-        <button className="flex items-center gap-2"><FaThumbsUp></FaThumbsUp>Like</button>  
-         <button className="flex items-center"><FaRegEdit></FaRegEdit> comment</button>
+        <button onClick={()=>{
+            handleIncrease(_id)
+            setPlusLike(!plusLike)
+
+
+        }} className="flex items-center gap-2 p-2 hover:bg-green-100 rounded-lg"><FaThumbsUp></FaThumbsUp>Like</button>  
+         <button onClick={()=>{
+             handleComment(_id)
+             setCommentBox(!commentBox)
+         }} className="flex items-center p-2 hover:bg-green-100 rounded-lg"><FaRegEdit></FaRegEdit>comment</button>
+        </div>
+
+        <div className={commentBox ? "p-3" : 'hidden'}>
+            <div className="flex gap-3"> 
+            <input type="text" className="text-xl input border-2 border-green-500 w-full" placeholder="Comment Section" />
+            <button className="btn border-none bg-green-500">Add</button>
+            </div>
         </div>
     
       </div>
