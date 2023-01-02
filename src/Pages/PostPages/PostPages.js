@@ -42,7 +42,7 @@ const PostPages = () => {
 
             }
             console.log(pictureData)
-            fetch(`https://post-card-server.vercel.app/posts`,{
+            fetch(`http://localhost:5000/posts`,{
                 method:'POST',
                 headers:{
                     'content-type': 'application/json',

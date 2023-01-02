@@ -7,6 +7,7 @@ const MediaDetails = ({ post }) => {
   const [commentBox, setCommentBox] = useState(false);
   const [loading, setLoading] = useState(false);
   const [plusLike, setPlusLike] = useState(false);
+  const [fullDes , setFullDes] = useState(false);
 
   const handleComment = (id) => {
     setCommentBox(true);
@@ -16,7 +17,7 @@ const MediaDetails = ({ post }) => {
     setLoading(true);
     console.log(plusLike);
 
-    fetch(`https://post-card-server.vercel.app/postlike/${plusLike}?id=${id}`, {
+    fetch(`http://localhost:5000/postlike/${plusLike}?id=${id}`, {
       method: "PUT",
     })
       .then((res) => res.json())
@@ -44,7 +45,19 @@ const MediaDetails = ({ post }) => {
           </div>
         </div>
 
-        <p>{caption}</p>
+        <p>
+          {
+            fullDes === false ? <>
+               {
+          caption.length > 80 ?  <>{caption.slice(0 , 80)}... <button onClick={()=> setFullDes(!fullDes)} className="text-green-500 font-semibold">see more</button></>
+          :
+          <>{caption}</>
+         }
+            </>
+            :
+          <button className="text-left" onClick={()=> setFullDes(!fullDes)}><>{caption}</></button>
+          }
+        </p>
         <div className="flex justify-between">
         <p>{countLike} Likes</p>
         <Link to={`/posts/${_id}`}><button className="btn btn-outline border-none text-white bg-green-500 font-bold">view</button></Link>
